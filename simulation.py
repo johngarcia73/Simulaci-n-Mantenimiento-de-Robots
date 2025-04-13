@@ -29,7 +29,10 @@ def ejecutar_simulacion():
             with reparadores.request() as req:
                 
                 # Registrar reparador asignado (0 o 1)
-                reparador_asignado = 0 if reparadores.count == 1 else 1
+                if reparadores.count == 1:
+                    reparador_asignado = 0  # Solo uno disponible, no hay opción
+                else:
+                    reparador_asignado = np.random.randint(0, 2)
                 tiempo_inicio = env.now
                 datos['tiempos_espera_cola'].append(tiempo_inicio - tiempo_llegada)
                 

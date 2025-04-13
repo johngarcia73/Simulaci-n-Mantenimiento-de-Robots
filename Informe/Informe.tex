@@ -56,8 +56,51 @@ El objetivo principal es determinar:
     \label{tab:variables}
 \end{table}
 
+
+
 % --------------------------------------------------
-\section{Detalles de Implementación (S2)}
+\section{Detalles de Implementación}
+
+\subsection{Metodología General}
+El sistema se modeló como un proceso estocástico de eventos discretos utilizando el paradigma \textit{cola M/M/2 con población finita}. Se implementó en Python con la biblioteca SimPy, siguiendo un enfoque basado en entidades activas (robots) y recursos compartidos (reparadores). La simulación se ejecutó durante 10,000 horas virtuales, descartando las primeras 1,000 horas para eliminar efectos transitorios.
+
+\subsection{Componentes Clave del Modelo}
+\begin{itemize}
+    \item \textbf{Mecanismo de servicio:} Dos reparadores independientes con tiempos de reparación exponenciales ($\mu = 1/3$ h$^{-1}$). La asignación de robots a reparadores se realiza mediante política aleatoria balanceada.
+    
+    \item \textbf{Cola de espera:} Estructura FIFO (\textit{First-In, First-Out}) gestionada implícitamente por SimPy al solicitar recursos ocupados.
+\end{itemize}
+
+\subsection{Arquitectura de Datos}
+\begin{itemize}
+    \item \textbf{Registro temporal:} Se almacenaron los tiempos de fallo, inicio/fin de reparación, y estado del sistema cada 0.1 horas.
+    
+    \item \textbf{Métricas calculadas:} 
+    \begin{itemize}
+        \item Disponibilidad ($L$): Promedio móvil de robots operativos
+        \item Utilización de recursos: Proporción temporal de uso por reparador
+        \item Distribución acumulada de tiempos en cola ($W_q$)
+    \end{itemize}
+    \item \textbf{Exclusión de transitorios:} Se aplicó un período de calentamiento de 1,000 horas para alcanzar el estado estacionario.
+\end{itemize}
+
+\subsection{Validación Estadística}
+\begin{itemize}
+    \item \textbf{Remuestreo bootstrap:} Se generaron 10,000 muestras sintéticas para calcular intervalos de confianza del 95\% en métricas clave.
+    
+    \item \textbf{Análisis de sensibilidad:} Variaciones controladas de $\lambda$ y $\mu$ para evaluar robustez del modelo.
+    
+\end{itemize}
+
+
+\subsection{Integración de Resultados}
+Los datos brutos se procesaron mediante un pipeline estadístico en cuatro etapas:
+\begin{enumerate}
+    \item \textbf{Filtrado:} Eliminación de datos del período transitorio
+    \item \textbf{Transformación:} Cálculo de métricas derivadas (ej. $W = W_q + S$)
+    \item \textbf{Agregación:} Generación de distribuciones acumuladas y promedios
+    \item \textbf{Visualización:} Creación automática de gráficos en Matplotlib
+\end{enumerate}
 
 \section{Resultados y Experimentos}
 \label{sec:resultados}
@@ -69,13 +112,13 @@ La ejecución de la simulación con 10 robots y 2 reparadores reveló un sistema
     \item \textbf{Tiempo total en sistema (W):} 3.33 horas
     \item \textbf{Tiempo en cola (Wq):} 0.39 horas (23 minutos)
     \item \textbf{Inactividad de reparadores:} 74.87\% del tiempo total
-    \item \textbf{Carga de trabajo:} Reparador 1 (41.98\%) vs Reparador 2 (55.41\%)
+    \item \textbf{Carga de trabajo:} Reparador 1 (41.98\%) vs Reparador 2 (55.41\%) (% del tiempoque estuvo trabajando)
 \end{itemize}
 
 \subsection{Interpretación de los Resultados}
 El valor de $L = 9.13$ indica que en promedio menos de un robot (0.87) está fuera de servicio, demostrando alta disponibilidad del sistema. Es difícil que más de un robot estén rotos a la vez. Esto sugiere que dos operarios son suficientes para cubrir la reparación de los 10 robots.
 
-\subsection{Hipótesis Extraídas}
+\subsection{Hipótesis Extraída}
 \begin{enumerate}
     \item \textbf{Sobrecapacidad:} El sistema podría mantener su eficiencia con un solo reparador.
 \end{enumerate}
@@ -83,8 +126,7 @@ El valor de $L = 9.13$ indica que en promedio menos de un robot (0.87) está fue
 \subsection{Experimentos Realizados}
 
 \textbf{Experimento 1 (Reducción a 1 reparador):}
-
-
+Tras cambiar el número de reparadores y reducirlo a 1, este pasó a tener una carga de trabajo del 92.55%, lo que representa que en efecto, un reparador puede, técnicamente y en términos de tiempo, encargarse de todos los robots.
 
 \subsection{Necesidad de Análisis Estadístico}
 El análisis detallado fue crucial debido a:
@@ -108,5 +150,25 @@ La configuración temporal se justificó mediante:
     
 \end{itemize}
 
+\section{Conclusiones}
+\label{sec:conclusiones}
+
+\subsection{Hallazgos Principales}
+La simulación reveló que el sistema actual con \textbf{10 robots y 2 reparadores} opera en régimen de sobrecapacidad, caracterizado por:
+\begin{itemize}
+    \item \textbf{Alta disponibilidad}
+    \item \textbf{Baja congestión}
+    \item \textbf{Alto tiempo de ocio de los trabajadores}
+\end{itemize}
+
+    Reducir a un solo operador podría tampoco ser solución, ya que no contaría con mucho margen (ya sea para descanso, o para emergencias).
+
+\begin{center}
+\fbox{
+\parbox{0.9\textwidth}{
+\textbf{Conclusión Final:} \\ 
+El sistema actual es \textit{eficiente pero ineficaz} — si bien garantiza alta disponibilidad, desperdicia un gran tiempo de la capacidad de reparación. Una política híbrida con 1 reparador full-time y otro parcial reduciría costos y mantendría una postura suficientemente conservadora.
+}}
+\end{center}
 
 \end{document}
