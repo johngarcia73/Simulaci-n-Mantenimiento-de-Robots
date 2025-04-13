@@ -18,7 +18,6 @@
 
 \maketitle
 
-% --------------------------------------------------
 \section{Introducción}
 \label{sec:introduccion}
 
@@ -57,12 +56,10 @@ El objetivo principal es determinar:
 \end{table}
 
 
-
-% --------------------------------------------------
 \section{Detalles de Implementación}
 
 \subsection{Metodología General}
-El sistema se modeló como un proceso estocástico de eventos discretos utilizando el paradigma \textit{cola M/M/2 con población finita}. Se implementó en Python con la biblioteca SimPy, siguiendo un enfoque basado en entidades activas (robots) y recursos compartidos (reparadores). La simulación se ejecutó durante 10,000 horas virtuales, descartando las primeras 1,000 horas para eliminar efectos transitorios.
+El sistema se modeló como un proceso estocástico de eventos discretos utilizando el paradigma \textit{cola M/M/2 con población finita}. Se implementó en Python con la biblioteca SimPy, siguiendo un enfoque basado en entidades activas (robots) y recursos compartidos (reparadores). La simulación se ejecutó durante 10,000 horas virtuales, descartando las primeras 1,000 horas para eliminar efectos transitorios (siendo muy conservadores, pero no importa ya que se asume que el comportamiento de los robots no se desgasta con el tiempo).
 
 \subsection{Componentes Clave del Modelo}
 \begin{itemize}
@@ -108,47 +105,47 @@ Los datos brutos se procesaron mediante un pipeline estadístico en cuatro etapa
 \subsection{Hallazgos de la Simulación}
 La ejecución de la simulación con 10 robots y 2 reparadores reveló un sistema altamente eficiente pero con capacidad ociosa significativa. Los resultados clave obtenidos fueron:
 \begin{itemize}
-    \item \textbf{Robots operativos promedio (L):} 9.13
-    \item \textbf{Tiempo total en sistema (W):} 3.33 horas
-    \item \textbf{Tiempo en cola (Wq):} 0.39 horas (23 minutos)
-    \item \textbf{Inactividad de reparadores:} 74.87\% del tiempo total
-    \item \textbf{Carga de trabajo:} Reparador 1 (41.98\%) vs Reparador 2 (55.41\%) (% del tiempoque estuvo trabajando)
+    \item \textbf{Robots operativos promedio (L):} 9.10
+    \item \textbf{Tiempo total en sistema (W):} 3.55 horas
+    \item \textbf{Tiempo en cola (Wq):} 0.45 horas (23 minutos)
+    \item \textbf{Inactividad de reparadores:} 73.76\% del tiempo total
+    \item \textbf{Carga de trabajo:} Reparador 1 (42.70\%) vs Reparador 2 (56.33\%) (% del tiempoque estuvo trabajando)
 \end{itemize}
 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../img/tabla_resultados.png}
+    \caption{Tabla con los resultados}
+    \label{fig:ejemplo}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../img/distribucion_cola.png}
+    \caption{Distribución del tiempo de cola}
+    \label{fig:ejemplo}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../img/utilizacion_reparadores.png}
+    \caption{\% del tiempo que cada reparador pasó trabajando}
+    \label{fig:ejemplo}
+\end{figure}
+
 \subsection{Interpretación de los Resultados}
-El valor de $L = 9.13$ indica que en promedio menos de un robot (0.87) está fuera de servicio, demostrando alta disponibilidad del sistema. Es difícil que más de un robot estén rotos a la vez. Esto sugiere que dos operarios son suficientes para cubrir la reparación de los 10 robots.
+El valor de $L = 9.10$ indica que en promedio menos de un robot (0.9) está fuera de servicio, demostrando alta disponibilidad del sistema. Es difícil que más de un robot estén rotos a la vez. Esto sugiere que dos operarios son suficientes para cubrir la reparación de los 10 robots.
 
 \subsection{Hipótesis Extraída}
 \begin{enumerate}
     \item \textbf{Sobrecapacidad:} El sistema podría mantener su eficiencia con un solo reparador.
 \end{enumerate}
 
-\subsection{Experimentos Realizados}
+\subsection{Experimento Realizado}
 
 \textbf{Experimento 1 (Reducción a 1 reparador):}
-Tras cambiar el número de reparadores y reducirlo a 1, este pasó a tener una carga de trabajo del 92.55%, lo que representa que en efecto, un reparador puede, técnicamente y en términos de tiempo, encargarse de todos los robots.
+Tras cambiar el número de reparadores y reducirlo a 1, este pasó a tener una carga de trabajo del 92.55%, lo que representa que en efecto, un reparador puede, técnicamente y en términos de tiempo, encargarse de todos los robots, aunque con poco margn.
 
-\subsection{Necesidad de Análisis Estadístico}
-El análisis detallado fue crucial debido a:
-\begin{itemize}
-    \item \textbf{No normalidad de Wq:} Prueba de Shapiro-Wilk rechazó normalidad ($p < 0.001$)
-    \item \textbf{Variabilidad oculta:} Coeficiente de variación de $L = 1.8\%$, mayor que el teórico (0.9\%)
-    \item \textbf{Correlaciones temporales:} Autocorrelación de 0.32 en $L$ (lag=100 muestras)
-\end{itemize}
-
-Se aplicó bootstrap no paramétrico con 10,000 remuestreos, obteniendo IC 95\%:
-\begin{equation}
-    Wq \in [0.35, 0.43] \ \text{horas}, \quad \rho_2 \in [52.1\%, 58.7\%]
-\end{equation}
-
-\subsection{Análisis de Parada de la Simulación}
-La configuración temporal se justificó mediante:
-\begin{itemize}
-    \item \textbf{Período de calentamiento:} 1,000 horas
-    
-    \item \textbf{Método de lotes:} 20 lotes de 450 horas mostraron estabilidad ($\sigma_{L} = 0.08$)
-    
-\end{itemize}
 
 \section{Conclusiones}
 \label{sec:conclusiones}

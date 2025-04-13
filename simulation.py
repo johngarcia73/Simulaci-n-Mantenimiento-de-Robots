@@ -27,12 +27,10 @@ def ejecutar_simulacion():
             datos['tiempos_llegada'].append(tiempo_llegada)
             
             with reparadores.request() as req:
+                yield req  # Espera en cola si ambos están ocupados
                 
                 # Registrar reparador asignado (0 o 1)
-                if reparadores.count == 1:
-                    reparador_asignado = 0  # Solo uno disponible, no hay opción
-                else:
-                    reparador_asignado = np.random.randint(0, 2)
+                reparador_asignado = 0 if reparadores.count == 1 else 1
                 tiempo_inicio = env.now
                 datos['tiempos_espera_cola'].append(tiempo_inicio - tiempo_llegada)
                 
@@ -51,7 +49,7 @@ def ejecutar_simulacion():
 
     # Configurar entorno
     env = simpy.Environment()
-    reparadores = simpy.Resource(env, capacity=2)  # Sería un recurso con capacidad 2
+    reparadores = simpy.Resource(env, capacity=2)  # Un solo recurso con capacidad 2
     
     for i in range(N_robots):
         env.process(proceso_robot(env, f'Robot_{i}', reparadores))

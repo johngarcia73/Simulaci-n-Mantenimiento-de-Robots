@@ -45,7 +45,7 @@ def generar_graficos(metricas, datos_filtrados):
     plt.rcParams.update({'font.size': 12})
     
     # Gráfico 1: Evolución de robots operativos
-    plt.figure(figsize=(10, 5   ))
+    plt.figure(figsize=(10, 5))
     plt.plot(np.linspace(metricas['WARM_UP'], metricas['SIM_TIME'], 
              len(datos_filtrados['estado_robots'])), 
              datos_filtrados['estado_robots'], alpha=0.7)

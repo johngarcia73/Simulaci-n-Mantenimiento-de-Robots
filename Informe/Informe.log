@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.4.11)  13 APR 2025 12:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.4.11)  13 APR 2025 15:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -388,6 +388,13 @@ File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
 ) (Informe.aux
 LaTeX Info: Redefining \. on input line 12.
 LaTeX Info: Redefining \% on input line 12.
+
+
+LaTeX Warning: Label `fig:ejemplo' multiply defined.
+
+
+LaTeX Warning: Label `fig:ejemplo' multiply defined.
+
 )
 \openout1 = `Informe.aux'.
 
@@ -488,19 +495,40 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 20.
 (C:\Users\John\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Underfull \hbox (badness 10000) in paragraph at lines 26--27
+Underfull \hbox (badness 10000) in paragraph at lines 25--26
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 28--29
+Underfull \hbox (badness 10000) in paragraph at lines 27--28
 
  []
 
 [1
 
 {C:/Users/John/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] [2]
-[3] [4] (Informe.aux
+<../img/tabla_resultados.png, id=99, 552.1428pt x 140.9265pt>
+File: ../img/tabla_resultados.png Graphic file (type png)
+<use ../img/tabla_resultados.png>
+Package pdftex.def Info: ../img/tabla_resultados.png  used on input line 117.
+(pdftex.def)             Requested size: 364.19667pt x 92.95801pt.
+<../img/distribucion_cola.png, id=101, 618.8721pt x 349.0641pt>
+File: ../img/distribucion_cola.png Graphic file (type png)
+<use ../img/distribucion_cola.png>
+Package pdftex.def Info: ../img/distribucion_cola.png  used on input line 124.
+(pdftex.def)             Requested size: 364.19667pt x 205.42406pt.
+<../img/utilizacion_reparadores.png, id=102, 510.708pt x 330.9966pt>
+File: ../img/utilizacion_reparadores.png Graphic file (type png)
+<use ../img/utilizacion_reparadores.png>
+Package pdftex.def Info: ../img/utilizacion_reparadores.png  used on input line
+ 131.
+(pdftex.def)             Requested size: 364.19667pt x 236.04459pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[3 <../img/tabla_resultados.png> <../img/distribucion_cola.png>] [4 <../img/uti
+lizacion_reparadores.png>] [5] (Informe.aux
 LaTeX Info: Redefining \. on input line 12.
 LaTeX Info: Redefining \% on input line 12.
 )
@@ -508,30 +536,47 @@ LaTeX Info: Redefining \% on input line 12.
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
-Package rerunfilecheck Info: File `Informe.out' has not changed.
-(rerunfilecheck)             Checksum: A66CABCB4D3D0F56A8851C58D37E0D12;3337.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+
+Package rerunfilecheck Warning: File `Informe.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `Informe.out':
+(rerunfilecheck)             Before: 5C18C42B12ABC9729A3FCB554F9E7D0B;3327
+(rerunfilecheck)             After:  444F69BC9529FDB6B4F878560FF0DD64;2835.
  ) 
 Here is how much of TeX's memory you used:
- 12631 strings out of 474486
- 198608 string characters out of 5744227
+ 12652 strings out of 474486
+ 199351 string characters out of 5744227
  1937542 words of memory out of 5000000
- 34733 multiletter control sequences out of 15000+600000
+ 34751 multiletter control sequences out of 15000+600000
  567823 words of font info for 73 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,9n,79p,451b,512s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\John\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1
-200.pk><C:/Users/John/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts
-/cm/cmbx12.pfb><C:/Users/John/AppData/Local/Programs/MiKTeX/fonts/type1/public/
-amsfonts/cm/cmmi12.pfb><C:/Users/John/AppData/Local/Programs/MiKTeX/fonts/type1
-/public/amsfonts/cm/cmmi8.pfb><C:/Users/John/AppData/Local/Programs/MiKTeX/font
-s/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/John/AppData/Local/Programs/MiKT
-eX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/John/AppData/Local/Program
-s/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/John/AppData/Local
-/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/John/AppDat
-a/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on Informe.pdf (4 pages, 121218 bytes).
+ 75i,9n,79p,576b,548s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+pdfTeX warning (dest): name{subsection.3.6} has been referenced but does not ex
+ist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{subsection.3.5} has been referenced but does not ex
+ist, replaced by a fixed one
+
+ <C:\Users\John\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm120
+0.pk><C:/Users/John/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/c
+m/cmbx12.pfb><C:/Users/John/AppData/Local/Programs/MiKTeX/fonts/type1/public/am
+sfonts/cm/cmmi12.pfb><C:/Users/John/AppData/Local/Programs/MiKTeX/fonts/type1/p
+ublic/amsfonts/cm/cmmi8.pfb><C:/Users/John/AppData/Local/Programs/MiKTeX/fonts/
+type1/public/amsfonts/cm/cmr12.pfb><C:/Users/John/AppData/Local/Programs/MiKTeX
+/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/John/AppData/Local/Programs/
+MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/John/AppData/Local/Pr
+ograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on Informe.pdf (5 pages, 372585 bytes).
 PDF statistics:
- 158 PDF objects out of 1000 (max. 8388607)
- 31 named destinations out of 1000 (max. 500000)
- 153 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 166 PDF objects out of 1000 (max. 8388607)
+ 34 named destinations out of 1000 (max. 500000)
+ 168 words of extra memory for PDF output out of 10000 (max. 10000000)
 
