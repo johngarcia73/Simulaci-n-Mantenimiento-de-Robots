@@ -44,19 +44,7 @@ def generar_graficos(metricas, datos_filtrados):
     plt.style.use('ggplot')
     plt.rcParams.update({'font.size': 12})
     
-    # Gráfico 1: Evolución de robots operativos
-    plt.figure(figsize=(10, 5))
-    plt.plot(np.linspace(metricas['WARM_UP'], metricas['SIM_TIME'], 
-             len(datos_filtrados['estado_robots'])), 
-             datos_filtrados['estado_robots'], alpha=0.7)
-    plt.title("Evolución del número de robots operativos")
-    plt.xlabel("Tiempo (horas)")
-    plt.ylabel("Robots operativos")
-    plt.ylim(3, 10)
-    plt.savefig("evolucion_robots.png", dpi=300, bbox_inches='tight')
-    plt.close()
-    
-    # Gráfico 2: Distribución del tiempo en cola
+    # Gráfico 1: Distribución del tiempo en cola
     plt.figure(figsize=(10, 5))
     plt.hist(datos_filtrados['tiempos_espera_cola'], bins=50, 
             density=True, alpha=0.7, color='#2ecc71')
@@ -70,7 +58,7 @@ def generar_graficos(metricas, datos_filtrados):
     plt.savefig("distribucion_cola.png", dpi=300, bbox_inches='tight')
     plt.close()
     
-    # Gráfico 3: Utilización de reparadores
+    # Gráfico 2: Utilización de reparadores
     plt.figure(figsize=(8, 5))
     plt.bar(['Reparador 1', 'Reparador 2'], metricas['utilizacion'], 
            color=['#3498db', '#e74c3c'])
