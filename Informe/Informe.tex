@@ -63,7 +63,7 @@ El sistema se modeló como un proceso estocástico de eventos discretos utilizan
 
 \subsection{Componentes Clave del Modelo}
 \begin{itemize}
-    \item \textbf{Mecanismo de servicio:} Dos reparadores independientes con tiempos de reparación exponenciales ($\mu = 1/3$ h$^{-1}$). La asignación de robots a reparadores se realiza mediante política aleatoria balanceada.
+    \item \textbf{Mecanismo de servicio:} Dos reparadores independientes con tiempos de reparación exponenciales ($\mu = 1/3$ h$^{-1}$).
     
     \item \textbf{Cola de espera:} Estructura FIFO (\textit{First-In, First-Out}) gestionada implícitamente por SimPy al solicitar recursos ocupados.
 \end{itemize}
@@ -81,20 +81,12 @@ El sistema se modeló como un proceso estocástico de eventos discretos utilizan
     \item \textbf{Exclusión de transitorios:} Se aplicó un período de calentamiento de 1,000 horas para alcanzar el estado estacionario.
 \end{itemize}
 
-\subsection{Validación Estadística}
-\begin{itemize}
-    \item \textbf{Remuestreo bootstrap:} Se generaron 10,000 muestras sintéticas para calcular intervalos de confianza del 95\% en métricas clave.
-    
-    \item \textbf{Análisis de sensibilidad:} Variaciones controladas de $\lambda$ y $\mu$ para evaluar robustez del modelo.
-    
-\end{itemize}
-
 
 \subsection{Integración de Resultados}
 Los datos brutos se procesaron mediante un pipeline estadístico en cuatro etapas:
 \begin{enumerate}
     \item \textbf{Filtrado:} Eliminación de datos del período transitorio
-    \item \textbf{Transformación:} Cálculo de métricas derivadas (ej. $W = W_q + S$)
+    \item \textbf{Transformación:} Cálculo de métricas derivadas.
     \item \textbf{Agregación:} Generación de distribuciones acumuladas y promedios
     \item \textbf{Visualización:} Creación automática de gráficos en Matplotlib
 \end{enumerate}
@@ -106,7 +98,7 @@ Los datos brutos se procesaron mediante un pipeline estadístico en cuatro etapa
 La ejecución de la simulación con 10 robots y 2 reparadores reveló un sistema altamente eficiente pero con capacidad ociosa significativa. Los resultados clave obtenidos fueron:
 \begin{itemize}
     \item \textbf{Robots operativos promedio (L):} 9.10
-    \item \textbf{Tiempo total en sistema (W):} 3.55 horas
+    \item \textbf{Tiempo total en el sistema (W):} 3.55 horas (lo que demora en el proceso de reparación en promedio )
     \item \textbf{Tiempo en cola (Wq):} 0.45 horas (23 minutos)
     \item \textbf{Inactividad de reparadores:} 73.76\% del tiempo total
     \item \textbf{Carga de trabajo:} Reparador 1 (42.70\%) vs Reparador 2 (56.33\%) (% del tiempoque estuvo trabajando)
@@ -137,18 +129,14 @@ La ejecución de la simulación con 10 robots y 2 reparadores reveló un sistema
 El valor de $L = 9.10$ indica que en promedio menos de un robot (0.9) está fuera de servicio, demostrando alta disponibilidad del sistema. Es difícil que más de un robot estén rotos a la vez. Esto sugiere que dos operarios son suficientes para cubrir la reparación de los 10 robots.
 
 \subsection{Hipótesis Extraída}
-\begin{enumerate}
-    \item \textbf{Sobrecapacidad:} El sistema podría mantener su eficiencia con un solo reparador.
-\end{enumerate}
-
+    \textbf{Sobrecapacidad:} El sistema podría mantener su eficiencia con un solo reparador.\\
+    
 \subsection{Experimento Realizado}
 
-\textbf{Experimento 1 (Reducción a 1 reparador):}
-Tras cambiar el número de reparadores y reducirlo a 1, este pasó a tener una carga de trabajo del 92.55%, lo que representa que en efecto, un reparador puede, técnicamente y en términos de tiempo, encargarse de todos los robots, aunque con poco margn.
-
+\textbf{Experimento (Reducción a 1 reparador):}
+Tras cambiar el número de reparadores y reducirlo a 1, este pasó a tener una carga de trabajo del 92.55\% y un tiempo promedio en cola de 1.09 h, lo que representa que en efecto, un reparador puede, técnicamente y en términos de tiempo, encargarse de todos los robots, aunque con poco margen.\\
 
 \section{Conclusiones}
-\label{sec:conclusiones}
 
 \subsection{Hallazgos Principales}
 La simulación reveló que el sistema actual con \textbf{10 robots y 2 reparadores} opera en régimen de sobrecapacidad, caracterizado por:
@@ -158,7 +146,7 @@ La simulación reveló que el sistema actual con \textbf{10 robots y 2 reparador
     \item \textbf{Alto tiempo de ocio de los trabajadores}
 \end{itemize}
 
-    Reducir a un solo operador podría tampoco ser solución, ya que no contaría con mucho margen (ya sea para descanso, o para emergencias).
+    Reducir a un solo operador podría, sin embargo, tampoco ser solución, ya que no contaría con mucho margen (ya sea para descanso, o para emergencias).
 
 \begin{center}
 \fbox{
